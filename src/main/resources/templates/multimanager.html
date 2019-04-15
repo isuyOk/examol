@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="zh-CN"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+
+
+    <!-- jquery -->
+    <script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
+    <!-- bootstrap -->
+    <link rel="stylesheet" type="text/css" th:href="@{/bootstrap/css/bootstrap.min.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/bootstrap/css/dashboard.css}"/>
+    <script type="text/javascript" th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+    <!-- jquery-validator -->
+    <script type="text/javascript" th:src="@{/jquery-validation/jquery.validate.min.js}"></script>
+    <script type="text/javascript" th:src="@{/jquery-validation/localization/messages_zh.min.js}"></script>
+    <!-- layer -->
+    <script type="text/javascript" th:src="@{/layer/layer.js}"></script>
+    <!-- md5.js -->
+    <script type="text/javascript" th:src="@{/js/md5.min.js}"></script>
+    <!-- common.js -->
+    <script type="text/javascript" th:src="@{/js/common.js}"></script>
+
+  </head>
+		<body>
+
+			<nav class="navbar navbar-inverse navbar-fixed-top">
+				<div class="container-fluid">
+					<div class="navbar-header">
+						<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+						 aria-controls="navbar">
+							<span class="sr-only">Toggle navigation</span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+						<a class="navbar-brand" href="#">Project name</a>
+					</div>
+					<div id="navbar" class="navbar-collapse collapse">
+						<ul class="nav navbar-nav navbar-right">
+							<li><a href="#">Dashboard</a></li>
+							<li><a href="#">Settings</a></li>
+							<li><a href="#">Profile</a></li>
+							<li><a href="#">Help</a></li>
+						</ul>
+						<form class="navbar-form navbar-right">
+							<input type="text" class="form-control" placeholder="Search...">
+						</form>
+					</div>
+				</div>
+			</nav>
+
+			<div class="container-fluid">
+				<div class="row">
+
+					<!-- 左侧导航栏 -->
+					<div th:replace="leftbar.html"></div>
+					<!-- 左侧导航栏结束 -->
+					</div>
+					<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+
+
+						<!-- 主体内容 -->
+						<h1 class="page-header">多选题管理</h1>
+
+
+
+						<h2 class="sub-header">Section title</h2>
+						<div class="table-responsive">
+							<table class="table table-striped">
+								<thead>
+									<tr>
+										<th>ID</th>
+										<th>question</th>
+										<th>answert</th>
+										<th>subject</th>
+										<th>operate</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="title : ${titles}">
+										<td th:text="${title.titleId}">1,001</td>
+										<td th:text="${title.question}">Lorem</td>
+										<td th:text="${title.anst}">sit</td>
+										<td th:text="${title.subjectName}">english</td>
+										<td>
+											<a class="a" th:href="'/multi/toupdate/'+${title.titleId}">update</a>
+											<button class="button"><a th:href="'/multi/dodelete/'+${title.titleId}">delete</a></button>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						
+						<!-- 分页 -->
+						<nav aria-label="Page navigation">
+  <ul class="pagination">
+    <li>
+      <a href="#" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+    <li><a href="#">1</a></li>
+    <li><a href="#">2</a></li>
+    <li><a href="#">3</a></li>
+    <li><a href="#">4</a></li>
+    <li><a href="#">5</a></li>
+    <li>
+      <a href="#" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+  </ul>
+</nav>
+						
+					</div>
+				</div>
+			</div>
+
+
+		</body>
+	</html>

@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.ErrorMapper">
+  <resultMap id="BaseResultMap" type="com.model.Error">
+    <id column="error_id" jdbcType="INTEGER" property="errorId" />
+    <result column="title_id" jdbcType="INTEGER" property="titleId" />
+    <result column="title_type" jdbcType="VARCHAR" property="titleType" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="subject_id" jdbcType="INTEGER" property="subjectId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    error_id, title_id, title_type, user_id, subject_id
+  </sql>
+  <select id="selectByExample" parameterType="com.model.ErrorExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from error
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from error
+    where error_id = #{errorId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from error
+    where error_id = #{errorId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.model.ErrorExample">
+    delete from error
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.model.Error">
+    insert into error (error_id, title_id, title_type, 
+      user_id, subject_id)
+    values (#{errorId,jdbcType=INTEGER}, #{titleId,jdbcType=INTEGER}, #{titleType,jdbcType=VARCHAR}, 
+      #{userId,jdbcType=INTEGER}, #{subjectId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.model.Error">
+    insert into error
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="errorId != null">
+        error_id,
+      </if>
+      <if test="titleId != null">
+        title_id,
+      </if>
+      <if test="titleType != null">
+        title_type,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="subjectId != null">
+        subject_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="errorId != null">
+        #{errorId,jdbcType=INTEGER},
+      </if>
+      <if test="titleId != null">
+        #{titleId,jdbcType=INTEGER},
+      </if>
+      <if test="titleType != null">
+        #{titleType,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="subjectId != null">
+        #{subjectId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.model.ErrorExample" resultType="java.lang.Long">
+    select count(*) from error
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update error
+    <set>
+      <if test="record.errorId != null">
+        error_id = #{record.errorId,jdbcType=INTEGER},
+      </if>
+      <if test="record.titleId != null">
+        title_id = #{record.titleId,jdbcType=INTEGER},
+      </if>
+      <if test="record.titleType != null">
+        title_type = #{record.titleType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.subjectId != null">
+        subject_id = #{record.subjectId,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update error
+    set error_id = #{record.errorId,jdbcType=INTEGER},
+      title_id = #{record.titleId,jdbcType=INTEGER},
+      title_type = #{record.titleType,jdbcType=VARCHAR},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      subject_id = #{record.subjectId,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.model.Error">
+    update error
+    <set>
+      <if test="titleId != null">
+        title_id = #{titleId,jdbcType=INTEGER},
+      </if>
+      <if test="titleType != null">
+        title_type = #{titleType,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="subjectId != null">
+        subject_id = #{subjectId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where error_id = #{errorId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.model.Error">
+    update error
+    set title_id = #{titleId,jdbcType=INTEGER},
+      title_type = #{titleType,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=INTEGER},
+      subject_id = #{subjectId,jdbcType=INTEGER}
+    where error_id = #{errorId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.TitleMapper">
+  <resultMap id="BaseResultMap" type="com.model.Title">
+    <id column="title_id" jdbcType="INTEGER" property="titleId" />
+    <result column="question" jdbcType="VARCHAR" property="question" />
+    <result column="ansa" jdbcType="VARCHAR" property="ansa" />
+    <result column="ansb" jdbcType="VARCHAR" property="ansb" />
+    <result column="ansc" jdbcType="VARCHAR" property="ansc" />
+    <result column="ansd" jdbcType="VARCHAR" property="ansd" />
+    <result column="anse" jdbcType="VARCHAR" property="anse" />
+    <result column="ansf" jdbcType="VARCHAR" property="ansf" />
+    <result column="anst" jdbcType="VARCHAR" property="anst" />
+    <result column="subject_id" jdbcType="INTEGER" property="subjectId" />
+    <result column="title_type" jdbcType="VARCHAR" property="titleType" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    title_id, question, ansa, ansb, ansc, ansd, anse, ansf, anst, subject_id, title_type
+  </sql>
+  <select id="selectByExample" parameterType="com.model.TitleExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from title
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from title
+    where title_id = #{titleId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from title
+    where title_id = #{titleId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.model.TitleExample">
+    delete from title
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.model.Title">
+    insert into title (title_id, question, ansa, 
+      ansb, ansc, ansd, anse, 
+      ansf, anst, subject_id, 
+      title_type)
+    values (#{titleId,jdbcType=INTEGER}, #{question,jdbcType=VARCHAR}, #{ansa,jdbcType=VARCHAR}, 
+      #{ansb,jdbcType=VARCHAR}, #{ansc,jdbcType=VARCHAR}, #{ansd,jdbcType=VARCHAR}, #{anse,jdbcType=VARCHAR}, 
+      #{ansf,jdbcType=VARCHAR}, #{anst,jdbcType=VARCHAR}, #{subjectId,jdbcType=INTEGER}, 
+      #{titleType,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.model.Title">
+    insert into title
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="titleId != null">
+        title_id,
+      </if>
+      <if test="question != null">
+        question,
+      </if>
+      <if test="ansa != null">
+        ansa,
+      </if>
+      <if test="ansb != null">
+        ansb,
+      </if>
+      <if test="ansc != null">
+        ansc,
+      </if>
+      <if test="ansd != null">
+        ansd,
+      </if>
+      <if test="anse != null">
+        anse,
+      </if>
+      <if test="ansf != null">
+        ansf,
+      </if>
+      <if test="anst != null">
+        anst,
+      </if>
+      <if test="subjectId != null">
+        subject_id,
+      </if>
+      <if test="titleType != null">
+        title_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="titleId != null">
+        #{titleId,jdbcType=INTEGER},
+      </if>
+      <if test="question != null">
+        #{question,jdbcType=VARCHAR},
+      </if>
+      <if test="ansa != null">
+        #{ansa,jdbcType=VARCHAR},
+      </if>
+      <if test="ansb != null">
+        #{ansb,jdbcType=VARCHAR},
+      </if>
+      <if test="ansc != null">
+        #{ansc,jdbcType=VARCHAR},
+      </if>
+      <if test="ansd != null">
+        #{ansd,jdbcType=VARCHAR},
+      </if>
+      <if test="anse != null">
+        #{anse,jdbcType=VARCHAR},
+      </if>
+      <if test="ansf != null">
+        #{ansf,jdbcType=VARCHAR},
+      </if>
+      <if test="anst != null">
+        #{anst,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectId != null">
+        #{subjectId,jdbcType=INTEGER},
+      </if>
+      <if test="titleType != null">
+        #{titleType,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.model.TitleExample" resultType="java.lang.Long">
+    select count(*) from title
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update title
+    <set>
+      <if test="record.titleId != null">
+        title_id = #{record.titleId,jdbcType=INTEGER},
+      </if>
+      <if test="record.question != null">
+        question = #{record.question,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ansa != null">
+        ansa = #{record.ansa,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ansb != null">
+        ansb = #{record.ansb,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ansc != null">
+        ansc = #{record.ansc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ansd != null">
+        ansd = #{record.ansd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.anse != null">
+        anse = #{record.anse,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ansf != null">
+        ansf = #{record.ansf,jdbcType=VARCHAR},
+      </if>
+      <if test="record.anst != null">
+        anst = #{record.anst,jdbcType=VARCHAR},
+      </if>
+      <if test="record.subjectId != null">
+        subject_id = #{record.subjectId,jdbcType=INTEGER},
+      </if>
+      <if test="record.titleType != null">
+        title_type = #{record.titleType,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update title
+    set title_id = #{record.titleId,jdbcType=INTEGER},
+      question = #{record.question,jdbcType=VARCHAR},
+      ansa = #{record.ansa,jdbcType=VARCHAR},
+      ansb = #{record.ansb,jdbcType=VARCHAR},
+      ansc = #{record.ansc,jdbcType=VARCHAR},
+      ansd = #{record.ansd,jdbcType=VARCHAR},
+      anse = #{record.anse,jdbcType=VARCHAR},
+      ansf = #{record.ansf,jdbcType=VARCHAR},
+      anst = #{record.anst,jdbcType=VARCHAR},
+      subject_id = #{record.subjectId,jdbcType=INTEGER},
+      title_type = #{record.titleType,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.model.Title">
+    update title
+    <set>
+      <if test="question != null">
+        question = #{question,jdbcType=VARCHAR},
+      </if>
+      <if test="ansa != null">
+        ansa = #{ansa,jdbcType=VARCHAR},
+      </if>
+      <if test="ansb != null">
+        ansb = #{ansb,jdbcType=VARCHAR},
+      </if>
+      <if test="ansc != null">
+        ansc = #{ansc,jdbcType=VARCHAR},
+      </if>
+      <if test="ansd != null">
+        ansd = #{ansd,jdbcType=VARCHAR},
+      </if>
+      <if test="anse != null">
+        anse = #{anse,jdbcType=VARCHAR},
+      </if>
+      <if test="ansf != null">
+        ansf = #{ansf,jdbcType=VARCHAR},
+      </if>
+      <if test="anst != null">
+        anst = #{anst,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectId != null">
+        subject_id = #{subjectId,jdbcType=INTEGER},
+      </if>
+      <if test="titleType != null">
+        title_type = #{titleType,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where title_id = #{titleId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.model.Title">
+    update title
+    set question = #{question,jdbcType=VARCHAR},
+      ansa = #{ansa,jdbcType=VARCHAR},
+      ansb = #{ansb,jdbcType=VARCHAR},
+      ansc = #{ansc,jdbcType=VARCHAR},
+      ansd = #{ansd,jdbcType=VARCHAR},
+      anse = #{anse,jdbcType=VARCHAR},
+      ansf = #{ansf,jdbcType=VARCHAR},
+      anst = #{anst,jdbcType=VARCHAR},
+      subject_id = #{subjectId,jdbcType=INTEGER},
+      title_type = #{titleType,jdbcType=VARCHAR}
+    where title_id = #{titleId,jdbcType=INTEGER}
+  </update>
+
+  <!-- 自定义-->
+  <resultMap id="ResultVo" type="com.vo.TitleVo">
+    <id column="title_id" jdbcType="INTEGER" property="titleId" />
+    <result column="question" jdbcType="VARCHAR" property="question" />
+    <result column="ansa" jdbcType="VARCHAR" property="ansa" />
+    <result column="ansb" jdbcType="VARCHAR" property="ansb" />
+    <result column="ansc" jdbcType="VARCHAR" property="ansc" />
+    <result column="ansd" jdbcType="VARCHAR" property="ansd" />
+    <result column="anse" jdbcType="VARCHAR" property="anse" />
+    <result column="ansf" jdbcType="VARCHAR" property="ansf" />
+    <result column="anst" jdbcType="VARCHAR" property="anst" />
+    <result column="subject_id" jdbcType="INTEGER" property="subjectId" />
+    <result column="title_type" jdbcType="VARCHAR" property="titleType" />
+
+    <result column="subjectname" jdbcType="VARCHAR" property="subjectName" />
+  </resultMap>
+
+
+<!--查询单选题以及科目-->
+  <select id="findTitleSubject" parameterType="java.lang.String" resultMap="ResultVo">
+    select title.*,subject.name as subjectname from title,subject where title.subject_id=subject.subject_id and title_type=#{titleType}
+  </select>
+
+<!--  查询多选题以及科目-->
+</mapper>
